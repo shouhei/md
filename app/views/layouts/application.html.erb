@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Md</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <% if current_user == nil %>
+    <%= link_to "ログイン", '/users/login' %>
+    <%= link_to "サインイン", '/users/new' %>
+  <% else %>
+    <%= link_to "ログアウト", '/users/logout', data: {confirm: 'ログアウトしますか？'} %>
+  <% end %>
+<%= yield %>
+
+</body>
+</html>
