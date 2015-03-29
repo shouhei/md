@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.where(user_id: session[:user_id])
+    @posts = Post.where(user_id: session[:user_id]).order(:updated_at)
   end
 
   # GET /posts/1
@@ -71,6 +71,10 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
   def set_post
     @post = Post.find_by(id: params[:id],user_id: session['user_id'])
+    if @post.nil?
+      redirect_to posts_path, notice: "That page is not your's "
+    end
+
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -78,4 +82,5 @@ class PostsController < ApplicationController
     params[:post][:user_id] = session[:user_id]
     params.require(:post).permit(:user_id, :content)
   end
+
 end

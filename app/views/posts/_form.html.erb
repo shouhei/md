@@ -1,8 +1,7 @@
-<%= form_for(@post) do |f| %>
+<%= form_for(@post, html:{class:'aui'}) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
       <ul>
       <% @post.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -12,8 +11,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
+    <p>This form can use markdown</p>
+    <%= f.text_area :content, class:'textarea full-width-field',rows:30 %>
   </div>
   <div class="actions">
     <%= f.submit %>

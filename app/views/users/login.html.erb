@@ -1,14 +1,24 @@
-<h1>Log in</h1>
-<%= form_tag '/users/login' do %>
-  <div class="field">
-    <%= label_tag :name, 'name' %>
-    <%= text_field_tag :name, params[:name] %>
+<header class="aui-page-header">
+  <div class="aui-page-header-inner">
+    <div class="aui-page-header-main">
+      <h1>login</h1>
+    </div>
   </div>
-  <div class="field">
-    <%= label_tag :pass, 'password' %>
-    <%= password_field_tag :pass , params[:pass]%>
+</header>
+<div class="aui-page-panel">
+  <div class="aui-page-panel-inner">
+    <section class="aui-page-panel-content">
+      <%= form_tag '/users/login' do %>
+        <div class="field">
+          <%= text_field_tag :name, params[:name], placeholder:'name' %>
+        </div>
+        <div class="field">
+          <%= password_field_tag :pass , params[:pass],placeholder:'password' %>
+        </div>
+        <div class="actions">
+        <%= submit_tag "ログイン" %>
+        </div>
+      <% end %>
+    </section>
   </div>
-  <div class="actions">
-  <%= submit_tag "ログイン" %>
-  </div>
-<% end %>
+</div>

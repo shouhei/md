@@ -1,15 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :login_check, only: [:index, :show, :update, :destroy, :logout]
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
-  end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @num_posts = Post.where(user_id: session[:id]).count;
+    logger.debug(@num_posts);
   end
 
   # GET /users/new
@@ -80,13 +77,20 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation)
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:name, :password, :password_confirmation)
+  end
+
+  def is_your_data?
+    if session[:user_id] != params[:id]
+      redirect_to posts_path, notice: "That page is not your's "
     end
+  end
+
 end
