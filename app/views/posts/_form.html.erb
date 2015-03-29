@@ -9,12 +9,26 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <p>This form can use markdown</p>
-    <%= f.text_area :content, class:'textarea full-width-field',rows:30 %>
+  <div class="aui-group">
+    <div class="aui-item">
+      <div class="field">
+        <p>This form can use markdown</p>
+        <%= f.text_area :content, class:'textarea full-width-field',rows:30, id:'post-text'%>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    </div>
+    <div class="aui-item" id="preview">
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <script>
+    $(function(){
+      var preview = function($el){
+        $('#preview').html(marked($el['target'].value));
+      };
+      $('#post-text').on('keyup',preview);
+      $('#preview').html(marked($('#post-text').val()));
+    });
+  </script>
 <% end %>
